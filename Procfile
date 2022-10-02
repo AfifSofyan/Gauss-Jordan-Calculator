@@ -1,0 +1,1 @@
+web: gunicorn gaussjordan_calculator.wsgi --log-file -

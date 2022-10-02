@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+{% load static %}
+{% load index %}
+{% load dict_keys %}
+{% load dict_detail %}
+{% load dict_matrix %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gauss-Jordan Calculator</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body style="background-color:darkslategray">
+
+    <div class="container shadow-lg p-4 m-2 mx-auto" style="max-height:2400px ; background-color: darkgrey;">
+    <div class="row">
+        <div class="col-9">
+            <h1 class="mb-5">Gauss-Jordan Calculator</h1>
+        </div>
+        <div class="col-3">
+            <a href="https://github.com/AfifSofyan/Gauss-Jordan-Calculator"><img src="{% static 'calculator/images/github.png' %}" alt="github" style="width:30px; height:30px; float:right;"></a>
+            <a href="https://www.linkedin.com/in/afif-fadhilah/"><img src="{% static 'calculator/images/linkedin.png' %}" alt="linkedin" style="width:32px; height:32px; float:right;"></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-7">
+            <p style="font-size:medium; text-align: justify;">Conducting Gauss-Jordan elimination, yet without approaching <a href="https://en.wikipedia.org/wiki/Row_echelon_form" class="text-dark" style="font-weight:600">row echelon form</a>. This version only works for <span style="font-family:Cambria"> n ⨉ (n + 1)</span> matrix. For the sake of simpler algorithm, the matrix is solved by the column —instead of row, direction from left to right to get the identity form on the left side. The matrix component <span style="font-family:Cambria; font-style:italic">a<sub>n ,n</sub></span> of <span style="font-family:Cambria; font-style:italic">column<sub>n</sub></span> is divided by itself and return <span style="font-family:Cambria">1</span>, along with the entire components of <span style="font-family:Cambria; font-style:italic">row<sub>n</sub></span>. While the remaining components of the column, along its entire row, are added or subtracted with the coresponding component of <span style="font-family:Cambria; font-style:italic">row<sub>n</sub></span> to get 0.</p>
+            <p style="font-size:medium; text-align: justify;">This algorithm is still being tested and improved for a better workflow. Even though it is found succesful for some common Gauss-Jordan example problem, it is still not ready to work on unsolved example like <a href="https://math.hws.edu/eck/math204/guide2020/05-homogeneous-systems.html#:~:text=A%20homogeneous%20system%20of%20linear,new%20system%20is%20still%20homogeneous." class="text-dark" style="font-weight:600">homogenous linear equations</a>.</p>
+            <p style="font-size:medium; text-align: justify;">For any error found in the result or steps of this calculator, or simply for any suggestion, please do not hesitate to raise issue <a href="https://github.com/AfifSofyan/Gauss-Jordan-Calculator/issues" class="text-dark" style="font-weight:600">here</a></p>
+        </div>
+        <div class="col-5">
+            
+            <div class="row">
+                <img src="{% static 'calculator/images/workflow.png' %}" alt="workflow">
+            </div>
+        </div>
+    </div>
+    
+    
+    <form action="" method="post" class="my-3">
+        {% csrf_token %}
+        <div style="width: 280px; height:40px" class="mx-auto d-flex justify-content-between align-items-center">
+            <label for="variables" style="font-size:large">How many variables to find ?</label>
+            <input type="number" name="variables" id="variables" value="{{ n }}" autocomplete="off" style="width:35px; height: 35px;" class="rounded rounded-1 text-center">
+        </div>
+            <input type="submit" name="generate" id="generate" value="Generate Matrix" class="btn btn-secondary d-block mx-auto">
+    </form>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="n" id="n" value="{{ n }}">
+        <input type="hidden" name="arr_src" id="arr_src" value="{{ arr_src }}">
+        {% if n != "" %}
+            <div style="max-height: 400px; max-width:fit-content; overflow: auto; white-space: nowrap; text-align: center; background-color: beige;" class="border border-2 mx-auto p-2 shadow-lg">
+        {% else %}
+            <div style="display: none">
+        {% endif %}
+            {% for x in res %}
+                {% if x == 0 %}
+                    <span style="width: 35px; height:35px; display: inline-block" class="mx-1"></span>
+                {% elif x == n1 %}
+                    <span style="width: 35px; height:35px; display: inline-block ; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large; font-style: italic" class="mx-1">y</span>
+                {% else %}
+                    <span style="width: 35px; height:35px; display: inline-block ; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: larger; font-style: italic" class="mx-1">x <sub>{{ x }}</sub></span>
+                {% endif %}
+            {% endfor %}
+
+            {% for i in vars %}
+                <div>
+                {% for j in res %}
+                    {% if j == 0 %}
+                        <span style="width: 35px; height:35px; display: inline-block ; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: large;" class="mx-1">eq <sub>{{ i }}</sub></span>
+                    {% else %}
+                            <input type="number" style="width:35px; height:35px; display: inline-block" class="rounded rounded-1 text-center mx-1 my-1" name="e{{ i }}x{{ j }}" id="e{{ i }}x{{ j }}" value="{{ arr_src|index:i|index:j }}" step="any">
+                    {% endif %}
+                {% endfor %}
+                </div>
+            {% endfor %}
+
+        </div>
+        
+        {% if n != "" %}
+            <input type="submit" name="run" id="run" value="Run Gauss-Jordan Calculator" class="d-block my-2 mx-auto btn btn-secondary">
+        {% else %}
+            <input type="submit" name="run" id="run" style="display:none">
+        {% endif %}
+
+
+    {% if len_res > 0 %}
+        <h3 class="mt-3 mb-1 text-center">Result Matrix</h3>
+        <div style="max-height: 400px; max-width: fit-content ; overflow: auto; white-space: nowrap; text-align: center;" class="my-3 mx-auto border-start border-end border-2 rounded-5 p-3">
+    {% else %}
+        <div style="display:none">
+    {% endif %}
+        <table>
+        {% if len_res > 0 %}
+        {% for i in vars %}
+            {% if i > 0 %}
+            <tr>
+            <td>
+                {% for j in vars %}
+                    {% if j > 0 %}
+                    <span style="width: 35px; height:35px; display: inline-block; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: larger;" class="mx-1">{{ arr_res|index:i|index:j }}</span>
+                    {% endif %}
+                {% endfor %}
+            </td>
+            <td class="border-start border-2 mx-1 px-1" style="width: 35px">
+                <span style="width: 35px; height:35px; display: inline-block; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: larger">{{ arr_res|index:i|index:n1 }}</span>
+            </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+        </table>
+    </div>
+
+        {% if len_res > 0 %}
+        <input type="submit" name="steps" id="steps" value="Show Steps" class="d-block btn btn-secondary mx-auto">
+        <input type="hidden" name="arr_res" id="arr_res" value="{{ arr_res }}">
+        {% endif %}
+    </form>
+
+    {% if show_steps %}
+        <div style="max-height: 800px; max-width: fit-content ; overflow: auto; white-space: nowrap; text-align: center; background-color: beige;" class="my-2 mx-auto border border-2 p-3 shadow-lg">
+    {% else %}
+        <div style="display:none">
+    {% endif %}
+        <table class="p-2 text-start" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size:large">
+            {% for step in steps|dict_keys %}
+            <tr>
+                <td class="p-2">{{ step }}</td>
+                <td class="p-2">{{ steps|dict_detail:step }}</td>
+                <td class="p-2">
+                    <div style="max-height: 400px; max-width: fit-content ; overflow: auto; white-space: nowrap; text-align: center;" class="my-1 mx-auto border-start border-end border-2 border-dark rounded-5 p-3 ">
+                    <table>
+                    {% for i in vars %}
+                        {% if i > 0 %}
+                        <tr>
+                        <td>
+                            {% for j in vars %}
+                                {% if j > 0 %}
+                                <span style="width: 35px; height:35px; display: inline-block" class="mx-1">{{ steps|dict_matrix:step|index:i|index:j }}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td class="border-start border-2 border-dark mx-2 px-1" style="width: 35px">
+                            <span style="width: 35px; height:35px; display: inline-block">{{ steps|dict_matrix:step|index:i|index:n1 }}</span>
+                        </td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </table>   
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        </div>
+        <div class="mb-5">
+
+        </div>
+    </div>
+
+
+</body>
+</html>
