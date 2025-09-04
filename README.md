@@ -2,7 +2,7 @@ This is a simple Django-based calculator that performs Gauss–Jordan eliminatio
 
 <img width="485" height="357" alt="App screenshot" src="https://github.com/user-attachments/assets/9bd15d1f-2a1b-4e58-b33a-e218005ef6cf" />
 
-From the user’s perspective, the calculator is straightforward to use. You enter the coefficients of your linear system into the grid of input fields that represent an augmented matrix, then click Solve. The app runs the column-based Gauss–Jordan routine and displays both the final reduced matrix and the intermediate operations performed at each stage. This makes it easy not only to obtain the solution vector but also to visually follow the logic of normalization and elimination as it progresses.
+From the user’s perspective, the calculator is straightforward to use. You enter the coefficients of your linear system into the grid of input fields that represent an augmented matrix, then click **Run Gauss-Jordan Calculator**. The app runs the column-based Gauss–Jordan routine and displays both the final reduced matrix and the intermediate operations performed at each stage. This makes it easy not only to obtain the solution vector but also to visually follow the logic of normalization and elimination as it progresses.
 
 <img width="303" height="576" alt="generated matrices and the result" src="https://github.com/user-attachments/assets/4dcdc11a-0c97-4c72-bcc9-8389f14ac0cb" />
 
