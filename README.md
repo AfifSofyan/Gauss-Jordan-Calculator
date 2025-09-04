@@ -1,8 +1,9 @@
-# Gauss-Jordan-Calculator
-Conducting Gauss-Jordan elimination, yet without approaching row echelon form. This version only works for n ⨉ (n + 1) matrix. For the sake of a simpler algorithm, the matrix is solved by the column, instead of row, direction from left to right to get the identity form on the left side. The matrix component a(n,n) of column n is divided by itself and returns 1, along with the rest of the components of row n. While the remaining components of the column, along with its entire row, are added or subtracted with the corresponding component of row n to make it 0.
+Gauss-Jordan Calculator
 
-<img width="2662" height="1806" alt="workflow" src="https://github.com/user-attachments/assets/dc290ef0-a861-4336-909f-ad7c92997e2d" />
+This is a simple Django-based calculator that performs Gauss-Jordan elimination with a unique twist. Instead of following the conventional row echelon form (REF/RREF) reduction, this project introduces a custom column-based algorithm to reduce matrices into identity form. It works specifically for n × (n + 1) matrices, solving them column by column from left to right. Each pivot element a(n,n) is normalized to 1, and the rest of its column is eliminated to 0, continuing until the left side of the matrix becomes an identity matrix. While unconventional, this approach offers a simpler workflow for common examples and demonstrates how an alternative perspective can still solve the problem effectively.
 
-This algorithm is still being tested and improved for a better workflow. Even though it is found succesful for some common Gauss-Jordan sample problems, it is still not ready to work on unsolved example like homogenous linear equations.
+<img width="485" height="357" alt="Gauss-Jordan Demo" src="https://github.com/user-attachments/assets/9bd15d1f-2a1b-4e58-b33a-e218005ef6cf" />
 
-For any error found in the result or steps of this calculator, or simply for any suggestion, please do not hesitate to raise an issue.
+At its current stage, this algorithm is still being tested and improved for better stability. It has been found successful for many common Gauss-Jordan problems, but it is not yet fully reliable for special cases such as homogeneous linear equations. This makes it a work in progress, open for further development and refinement.
+
+If you discover any errors in the results or steps, or if you have suggestions to improve the workflow, please don’t hesitate to raise an issue or contribute. Feedback and collaboration are always welcome.
