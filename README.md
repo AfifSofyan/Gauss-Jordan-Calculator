@@ -1,3 +1,5 @@
+**Gauss-Jordan Calculator**
+
 This is a simple Django-based calculator that performs Gauss–Jordan elimination with a unique twist. Instead of following the conventional row echelon form (REF/RREF) reduction, this project implements a custom column-based approach to reduce matrices into identity form. It works specifically for n × (n + 1) augmented matrices, processing them column by column from left to right. Each pivot element a(n,n) is normalized to 1, and the rest of its column is eliminated to 0, continuing until the left side becomes an identity matrix. While unconventional, this approach offers a simpler workflow for common examples and shows how an alternative perspective can still solve the problem effectively.
 
 <img width="485" height="357" alt="App screenshot" src="https://github.com/user-attachments/assets/9bd15d1f-2a1b-4e58-b33a-e218005ef6cf" />
